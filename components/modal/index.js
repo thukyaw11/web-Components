@@ -40,8 +40,9 @@ style.innerHTML=`
 
 export default class Modal extends HTMLElement{
   static get observedAttributes(){
-    return['content'];
+    return['value','content'];
   }
+  $button_value
   $user_content
 
   constructor(){
@@ -56,13 +57,13 @@ export default class Modal extends HTMLElement{
     const div_modalContent=toCreateElement('div');
     const span=toCreateElement('span');
     const h1=toCreateElement('h1');
+    const slot=toCreateElement('slot');
     button.textContent='click';
     h1.textContent="hello";
     span.textContent="x";
 
-    // const button = document.createElement('button')
-
-    //set attributes usting function
+    //set attributes using function
+    setAttributes(h1,{'class':'render'})
     setAttributes(div_modal,{'class':'modal'});
     setAttributes(div_modalContent,{'class':'modal-content'});
     setAttributes(span,{'class':'close-button'});
@@ -73,25 +74,27 @@ export default class Modal extends HTMLElement{
 
     //shadow DOM attach
     const shadow=this.attachShadow({mode:'open'});
-    shadow.appendChild(button);
-    shadow.appendChild(style);
-    shadow.appendChild(div_modal);
-    var modal=this.shadowRoot.querySelector('.modal');
-
-    this.shadowRoot.addEventListener("click",function(){
+    shadow.append(button,style,div_modal,slot);
+    //open the dialog
+    const modal=this.shadowRoot.querySelector('.modal');
+    button.addEventListener("click",function(){
       modal.style.display="block";
     });
-
     
+    //close the dialog
     const btn=this.shadowRoot.querySelector('.close-button');
-    
     btn.addEventListener("click",function(){
       modal.style.display="none";
     });
-  
+  //get the user-content
+    this.$user_content=this.shadowRoot.querySelector('.render');
     log(shadow);
 
  
+  }
+  attributeChangedCallback(name, oldValue, newValue){
+    return this.$user_content.textContent=newValue;
+      
   }
 }
 
