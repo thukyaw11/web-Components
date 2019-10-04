@@ -42,6 +42,7 @@ export default class Modal extends HTMLElement{
   static get observedAttributes(){
     return['value','content'];
   }
+  //just assign
   $button_value
   $user_content
 
@@ -56,14 +57,16 @@ export default class Modal extends HTMLElement{
     const div_modal=toCreateElement('div');
     const div_modalContent=toCreateElement('div');
     const span=toCreateElement('span');
-    const h1=toCreateElement('h1');
+    const h1=toCreateElement('h1');   // shadow.appendChild(button);
+    // shadow.appendChild(style);
+    // shadow.appendChild(div_modal);
+    // shadow.appendChild(slot);ent('h1');
     const slot=toCreateElement('slot');
-    button.textContent='click';
-    h1.textContent="hello";
     span.textContent="x";
 
     //set attributes using function
-    setAttributes(h1,{'class':'render'})
+    setAttributes(button,{'class':'btn'});
+    setAttributes(h1,{'class':'render'});
     setAttributes(div_modal,{'class':'modal'});
     setAttributes(div_modalContent,{'class':'modal-content'});
     setAttributes(span,{'class':'close-button'});
@@ -88,12 +91,18 @@ export default class Modal extends HTMLElement{
     });
   //get the user-content
     this.$user_content=this.shadowRoot.querySelector('.render');
+    this.$button_value=this.shadowRoot.querySelector('.btn');
     log(shadow);
 
  
   }
   attributeChangedCallback(name, oldValue, newValue){
+    switch(name){
+    case 'value':
+      return this.$button_value.innerHTML=newValue;
+    case 'content':
     return this.$user_content.textContent=newValue;
+    }
       
   }
 }
