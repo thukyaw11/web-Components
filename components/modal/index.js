@@ -78,7 +78,7 @@ export default class Modal extends HTMLElement{
     shadow.appendChild(div_modal);
     var modal=this.shadowRoot.querySelector('.modal');
 
-    this.shadowRoot.addEventListener("click",function(){
+    button.addEventListener("click",function(){
       modal.style.display="block";
     });
 
