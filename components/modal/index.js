@@ -109,39 +109,3 @@ export default class Modal extends HTMLElement{
 
 
 
-   
-// const template = document.createElement('template');
-// template.innerHTML = `
-//   <div>
-//     <button>Click me</button>
-//     <div class="modal-box"></div>
-//   </div>
-
-// `
-
-
-// export default class Modal extends HTMLElement {
-//   static get observedAttributes() {
-//     return ['content'];
-//   }
-
-//   $modalBox 
-
-//   constructor() {
-//     super();
-
-//     this.attachShadow({ mode: 'open' });
-//     this.shadowRoot.appendChild(template.content.cloneNode(true));
-
-//     this.$modalBox = this.shadowRoot.querySelector('.modal-box');
-    
-//     setAttributes(button,{'onclick':'openModal()'});
-//   }
-
-//   attributeChangedCallback(name, oldValue, newValue) {
-//     switch(name) {
-//       case 'content': 
-//         return this.$modalBox.innerHTML = newValue;
-//     }
-//   }
-// }

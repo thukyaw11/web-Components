@@ -8,7 +8,7 @@ template.innerHTML = `
   }
   </style>
   <div class="share-buttons">
-    <slot name="social-button">
+    
       <a 
         href="" 
         class="social-name" 
@@ -16,7 +16,7 @@ template.innerHTML = `
       >
         <i></i>
       </a>
-    </slot>
+
   </div>
 `
 export default class SocialButton extends HTMLElement {
@@ -33,9 +33,11 @@ export default class SocialButton extends HTMLElement {
     super();
 
     this.attachShadow({ mode: 'open' })
+    console.log(this.shadowRoot);
     this.shadowRoot.appendChild(template.content.cloneNode(true));
 
     this.$type = this.shadowRoot.querySelector('i');
+
     this.$data_param_url = this.shadowRoot.querySelector('a[href]');
     this.$data_param_text = this.shadowRoot.querySelector('a[title]');
   }
@@ -44,7 +46,6 @@ export default class SocialButton extends HTMLElement {
     switch(name) {
       case 'type':
         return this.$type.innerHTML = newValue;
-
       case 'data-param-text':
         return this.$data_param_text.title = newValue;
       case 'data-param-url':
